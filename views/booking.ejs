@@ -339,7 +339,7 @@
                                 <div class="room-option" data-room-id="<%= room.id %>" data-price="<%= room.price %>">
                                     <div class="room-details">
                                         <div class="room-name"><%= room.name %></div>
-                                        <div class="room-price">$<%= room.price %> per night</div>
+                                        <div class="room-price">Rs<%= room.price %> per night</div>
                                         <div><%= room.description %></div>
                                     </div>
                                 </div>
@@ -357,7 +357,7 @@
                                 <div class="room-option" data-room-id="<%= venue.id %>" data-price="<%= venue.price %>">
                                     <div class="room-details">
                                         <div class="room-name"><%= venue.name %></div>
-                                        <div class="room-price">$<%= venue.price %> per day</div>
+                                        <div class="room-price">Rs<%= venue.price %> per day</div>
                                         <div><%= venue.description %></div>
                                     </div>
                                 </div>
@@ -429,7 +429,7 @@
                                         <input type="checkbox" id="addon_<%= addon.id %>" name="addon_<%= addon.id %>" value="<%= addon.price %>" onchange="updateSummary()">
                                         <label for="addon_<%= addon.id %>"><%= addon.name %></label>
                                     </div>
-                                    <span>$<%= addon.price %></span>
+                                    <span>Rs<%= addon.price %></span>
                                 </div>
                             <% }); %>
                         </div>
@@ -474,20 +474,20 @@
                     <h3>Price Breakdown</h3>
                     <div class="summary-line">
                         <span id="main_item_label">Accommodation:</span>
-                        <span id="main_item_price">$0</span>
+                        <span id="main_item_price">Rs0</span>
                     </div>
                     <div id="addon_summary"></div>
                     <div class="summary-line">
                         <span>Taxes & Fees (<%= taxPercentage %>%):</span>
-                        <span id="taxes_fees">$0</span>
+                        <span id="taxes_fees">Rs0</span>
                     </div>
                     <div class="summary-line" id="discount_line" style="display: none;">
                         <span>Discount:</span>
-                        <span id="discount_amount">$0</span>
+                        <span id="discount_amount">Rs0</span>
                     </div>
                     <div class="summary-line summary-total">
                         <span>Total:</span>
-                        <span id="total_price">$0</span>
+                        <span id="total_price">Rs0</span>
                     </div>
                 </div>
 
@@ -672,9 +672,9 @@
             
             const options = { month: 'short', day: 'numeric' };
             document.getElementById('summary_dates').textContent = 
-                `${checkIn.toLocaleDateString(undefined, options)} - ${checkOut.toLocaleDateString(undefined, options)}`;
+                `Rs{checkIn.toLocaleDateString(undefined, options)} - Rs{checkOut.toLocaleDateString(undefined, options)}`;
             document.getElementById('summary_duration').textContent = 
-                `${numberOfNights} night${numberOfNights > 1 ? 's' : ''}`;
+                `Rs{numberOfNights} night RS{numberOfNights > 1 ? 's' : ''}`;
             
             updateSummary();
         }
@@ -690,7 +690,7 @@
             }
             
             document.getElementById('summary_guests').textContent = 
-                `${numAdults} Adult${numAdults > 1 ? 's' : ''}${numChildren > 0 ? `, ${numChildren} Child${numChildren > 1 ? 'ren' : ''}` : ''}`;
+                `Rs{numAdults} Adult rs{numAdults > 1 ? 's' : ''}${numChildren > 0 ? `, ${numChildren} Child${numChildren > 1 ? 'ren' : ''}` : ''}`;
                 
             updateSummary();
         }
@@ -741,7 +741,7 @@
             const promoCodeInput = document.getElementById('promo_code').value.trim();
             if (validPromoCodes[promoCodeInput]) {
                 discountPercentage = validPromoCodes[promoCodeInput];
-                alert(`Promo code applied! You get a ${discountPercentage}% discount.`);
+                alert(`Promo code applied! You get a Rs{discountPercentage}% discount.`);
             } else {
                 discountPercentage = 0;
                 alert('Invalid promo code.');

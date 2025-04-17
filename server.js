@@ -81,7 +81,7 @@ const hotelTemplateData = {
     { 
       id: 'standard', 
       name: 'Standard Room', 
-      price: 129, 
+      price: 1999, 
       description: 'Comfortable room with all essentials', 
       image: '/images/standard-room.jpg',
       features: ['Queen Bed', 'Free Wi-Fi', 'TV']
@@ -89,7 +89,7 @@ const hotelTemplateData = {
     { 
       id: 'deluxe', 
       name: 'Deluxe Room', 
-      price: 179, 
+      price: 2999, 
       description: 'Spacious room with premium amenities', 
       image: '/images/deluxe-room.jpg',
       features: ['King Bed', 'Free Wi-Fi', 'Mini Bar', 'City View']
@@ -99,7 +99,7 @@ const hotelTemplateData = {
     { 
       id: 'conference', 
       name: 'Conference Room', 
-      price: 499, 
+      price: 4999, 
       description: 'Perfect for business meetings and conferences', 
       image: '/images/conference-room.jpg',
       features: ['Capacity: 50 people', 'Projector', 'Sound System']
@@ -107,19 +107,19 @@ const hotelTemplateData = {
     { 
       id: 'ballroom', 
       name: 'Grand Ballroom', 
-      price: 999, 
+      price: 10999, 
       description: 'Elegant space for weddings and formal events', 
       image: '/images/ballroom.jpg',
       features: ['Capacity: 200 people', 'Dance Floor', 'Stage']
     }
   ],
   addons: [
-    { id: 'breakfast', name: 'Breakfast Buffet', price: 25, priceLabel: 'per person' },
-    { id: 'parking', name: 'Parking', price: 15, priceLabel: 'per day' },
-    { id: 'airport', name: 'Airport Transfer', price: 50, priceLabel: 'one way' }
+    { id: 'breakfast', name: 'Breakfast Buffet', price: 999, priceLabel: 'per person' },
+    { id: 'parking', name: 'Parking', price: 150, priceLabel: 'per day' },
+    { id: 'airport', name: 'Airport Transfer', price: 800, priceLabel: 'one way' }
   ],
   countries: [
-    { code: 'us', name: 'United States' },
+    { code: 'In', name: 'India' },
     { code: 'ca', name: 'Canada' },
     { code: 'uk', name: 'United Kingdom' },
     { code: 'au', name: 'Australia' }
