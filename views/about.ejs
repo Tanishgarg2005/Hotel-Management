@@ -1,116 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <!-- <link rel="stylesheet" href="styles.css"> Link to your CSS file -->
+    <title>About Us - Ivory Haven Hotels & Resorts</title>
     <style>
-        /* Basic styling (Add to styles.css or keep here) */
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #b8860b;
+            --accent: #d4af37;
+            --background: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
+            --neutral-light: #f5f6f7;
+            --neutral-medium: #e9ecef;
+            --cream: #faf9f6;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        h1, h2 {
-            margin: 10px 0;
-            text-align: center;
-        }
-        p {
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: var(--text-dark);
             line-height: 1.6;
-            margin: 10px 0;
+            background-color: var(--background);
         }
-        .team {
+
+        .navbar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--background);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-name {
+            flex: 1;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            flex: 2;
+            display: flex;
             justify-content: center;
+            gap: 2.5rem;
+            margin: 0 2rem;
         }
+
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .auth-buttons {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .auth-buttons a {
+            padding: 0.8rem 1.5rem;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .login-btn {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .register-btn {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .register-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .section {
+            padding: 6rem 10%;
+            margin-top: 80px;
+        }
+
+        .section:nth-child(odd) {
+            background-color: var(--cream);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .about-intro p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background-color: var(--background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
         .team-member {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
+            background-color: var(--background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
         .team-member img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
         }
-        .footer {
-            background-color: #333;
-            color: #fff;
+
+        .team-member-info {
+            padding: 1.5rem;
             text-align: center;
-            padding: 10px;
-            position: relative;
         }
+
+        .team-member-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member-info .position {
+            color: var(--secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 6rem 10%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 10%;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
-            .team-member {
-                width: 100%;
+            .nav-links {
+                display: none;
+            }
+
+            .auth-buttons {
+                flex: 2;
+            }
+
+            .team-grid,
+            .values-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="header">
-        <h1>About Us</h1>
-    </div>
+    <nav class="navbar">
+        <a href="/" class="brand-name">Ivory Haven</a>
+        <div class="nav-links">
+            <a href="/">Rooms</a>
+            <a href="/">Dining</a>
+            <a href="/">Meetings</a>
+            <a href="/">Weddings</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="register-btn">Register</a>
+        </div>
+    </nav>
 
-    <div class="container">
-        <section>
-            <h2>Who We Are</h2>
-            <p>
-                Welcome to Ivory Haven Hotels & Resorts ! We are a team of passionate individuals committed to delivering high-quality services and solutions. Our mission is to empower our users and clients through innovation, dedication, and excellence.
-            </p>
-        </section>
+    <section class="section">
+        <div class="about-intro">
+            <div class="section-title">
+                <h2>About Ivory Haven</h2>
+            </div>
+            <p>Founded in 1995, Ivory Haven Hotels & Resorts has established itself as a premier luxury hospitality brand with properties across the globe. Our commitment to excellence, personalized service, and exceptional guest experiences has made us a preferred choice for discerning travelers.</p>
+            <p>At Ivory Haven, we believe in creating more than just accommodations – we craft destinations that blend timeless elegance with modern luxury, ensuring each guest enjoys a memorable stay that exceeds expectations.</p>
+        </div>
+    </section>
 
-        <section>
-            <h2>Our Vision</h2>
-            <p>
-                Our vision is to become a trusted partner in achieving your goals. We aim to create a positive impact in the community by offering services that meet the highest standards.
-            </p>
-        </section>
+    <section class="section">
+        <div class="section-title">
+            <h2>Our Values</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <h3>Excellence</h3>
+                <p>We strive for perfection in every detail, from accommodation to service, ensuring an extraordinary experience for every guest.</p>
+            </div>
+            <div class="value-card">
+                <h3>Authenticity</h3>
+                <p>Each property celebrates the unique culture and heritage of its location while maintaining our signature Ivory Haven elegance.</p>
+            </div>
+            <div class="value-card">
+                <h3>Innovation</h3>
+                <p>We continuously evolve and adapt to exceed the expectations of the modern luxury traveler.</p>
+            </div>
+            <div class="value-card">
+                <h3>Sustainability</h3>
+                <p>Our commitment to responsible luxury ensures we protect and preserve the beautiful destinations we call home.</p>
+            </div>
+        </div>
+    </section>
 
-        <!-- <section>
-            <h2>Meet Our Team</h2>
-            <div class="team">
-                <div class="team-member">
-                    <img src="team1.jpg" alt="Team Member">
-                    <h3>John Doe</h3>
-                    <p>Founder & CEO</p>
-                </div>
-                <div class="team-member">
-                    <img src="team2.jpg" alt="Team Member">
-                    <h3>Jane Smith</h3>
-                    <p>Chief Operating Officer</p>
-                </div>
-                <div class="team-member">
-                    <img src="team3.jpg" alt="Team Member">
-                    <h3>Mike Johnson</h3>
-                    <p>Lead Developer</p>
+    <section class="section">
+        <div class="section-title">
+            <h2>Leadership Team</h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="/api/placeholder/400/400" alt="CEO Portrait">
+                <div class="team-member-info">
+                    <h3>Alexandra Winters</h3>
+                    <span class="position">Chief Executive Officer</span>
+                    <p>With over 25 years in luxury hospitality, Alexandra leads Ivory Haven with visionary expertise and unwavering dedication to excellence.</p>
                 </div>
             </div>
-        </section> -->
-    </div>
+            <div class="team-member">
+                <img src="/api/placeholder/400/400" alt="COO Portrait">
+                <div class="team-member-info">
+                    <h3>Marcus Chen</h3>
+                    <span class="position">Chief Operations Officer</span>
+                    <p>Marcus ensures operational excellence across all properties, implementing innovative practices that elevate the guest experience.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="/api/placeholder/400/400" alt="Creative Director Portrait">
+                <div class="team-member-info">
+                    <h3>Isabella Romano</h3>
+                    <span class="position">Creative Director</span>
+                    <p>Isabella's artistic vision shapes the distinctive aesthetic that defines Ivory Haven's sophisticated and timeless design philosophy.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="/api/placeholder/400/400" alt="Sustainability Officer Portrait">
+                <div class="team-member-info">
+                    <h3>Daniel Okafor</h3>
+                    <span class="position">Chief Sustainability Officer</span>
+                    <p>Daniel leads our initiatives in responsible luxury, ensuring our operations contribute positively to communities and the environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="footer">
-        <p>&copy; 2025 Ivory Haven Hotels & Resorts. All Rights Reserved.</p>
-    </div>
+    <section class="cta-section">
+        <h2>Experience Ivory Haven Hospitality</h2>
+        <p>Begin your journey into luxury with our exceptional accommodations and world-class service</p>
+        <a href="/booking" class="cta-button">Book Your Stay</a>
+    </section>
+
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> Ivory Haven Hotels & Resorts. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
