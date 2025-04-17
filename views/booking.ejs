@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #b8860b;
+            --accent: #d4af37;
+            --background: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
+            --neutral-light: #f5f6f7;
+            --neutral-medium: #e9ecef;
+            --cream: #faf9f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--background);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--background);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-buttons a {
+            padding: 0.6rem 1.2rem;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+
+        .login-btn {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .register-btn {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .page-header {
+            background-color: var(--primary);
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .booking-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .booking-form, .booking-summary {
+            background-color: var(--cream);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-summary {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .room-options, .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .room-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .room-option.selected {
+            border: 2px solid var(--accent);
+        }
+
+        .room-details {
+            padding: 0.5rem 0;
+        }
+
+        .room-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .room-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .service-option {
+            background-color: var(--neutral-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .service-option.selected {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: var(--neutral-light);
+            border-radius: 4px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .summary-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .promo-code {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo-code button {
+            background-color: var(--secondary);
+            color: var(--text-light);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0 1rem;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: var(--text-light);
+            border: none;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 2rem 10%;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+            .booking-summary {
+                position: static;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .date-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="brand-name"><%= hotelName %></a>
+        <div class="nav-links">
+            <% navLinks.forEach(function(link) { %>
+                <a href="<%= link.url %>"><%= link.text %></a>
+            <% }); %>
+        </div>
+        <div class="auth-buttons">
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="register-btn">Register</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1 class="page-title"><%= pageHeading %></h1>
+    </div>
+
+    <div class="booking-container">
+        <div class="booking-grid">
+            <div class="booking-form">
+                <form action="<%= formAction %>" method="POST">
+                    <!-- Service Selection -->
+                    <div class="form-section">
+                        <h3>Select Your Experience</h3>
+                        <div class="service-options">
+                            <% services.forEach(function(service) { %>
+                                <div class="service-option" data-service-id="<%= service.id %>">
+                                    <h4><%= service.name %></h4>
+                                    <p><%= service.description %></p>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <input type="hidden" name="service_type" id="service_type" required>
+                    </div>
+
+                    <!-- Rooms -->
+                    <div class="form-section" id="accommodation-section">
+                        <h3>Select Your Room</h3>
+                        <div class="room-options">
+                            <% rooms.forEach(function(room) { %>
+                                <div class="room-option" data-room-id="<%= room.id %>" data-price="<%= room.price %>">
+                                    <div class="room-details">
+                                        <div class="room-name"><%= room.name %></div>
+                                        <div class="room-price">$<%= room.price %> per night</div>
+                                        <div><%= room.description %></div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <input type="hidden" name="room_type" id="room_type">
+                        <input type="hidden" name="room_price" id="room_price">
+                    </div>
+
+                    <!-- Venues -->
+                    <div class="form-section" id="venue-section" style="display: none;">
+                        <h3>Select Your Venue</h3>
+                        <div class="room-options">
+                            <% venues.forEach(function(venue) { %>
+                                <div class="room-option" data-room-id="<%= venue.id %>" data-price="<%= venue.price %>">
+                                    <div class="room-details">
+                                        <div class="room-name"><%= venue.name %></div>
+                                        <div class="room-price">$<%= venue.price %> per day</div>
+                                        <div><%= venue.description %></div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <input type="hidden" name="venue_type" id="venue_type">
+                        <input type="hidden" name="venue_price" id="venue_price">
+                    </div>
+
+                    <!-- Dates -->
+                    <div class="form-section">
+                        <h3>Select Dates</h3>
+                        <div class="date-inputs">
+                            <div class="form-group">
+                                <label for="check_in">Check-in Date</label>
+                                <input type="date" id="check_in" name="check_in" required onchange="calculateNights()">
+                            </div>
+                            <div class="form-group">
+                                <label for="check_out">Check-out Date</label>
+                                <input type="date" id="check_out" name="check_out" required onchange="calculateNights()">
+                            </div>
+                        </div>
+                        <input type="hidden" name="num_nights" id="num_nights">
+                    </div>
+
+                    <!-- Guest Info -->
+                    <div class="form-section">
+                        <h3>Guest Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guest_name">Full Name</label>
+                                <input type="text" id="guest_name" name="guest_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guest_email">Email Address</label>
+                                <input type="email" id="guest_email" name="guest_email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guest_phone">Phone Number</label>
+                                <input type="tel" id="guest_phone" name="guest_phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="num_adults">Number of Guests</label>
+                                <div class="form-row">
+                                    <select id="num_adults" name="num_adults" required>
+                                        <% for(let i = 1; i <= 4; i++) { %>
+                                            <option value="<%= i %>" <%= i === 2 ? 'selected' : '' %>><%= i %> Adults</option>
+                                        <% } %>
+                                    </select>
+                                    <select id="num_children" name="num_children">
+                                        <% for(let i = 0; i <= 3; i++) { %>
+                                            <option value="<%= i %>"><%= i %> Children</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add-ons -->
+                    <div class="form-section">
+                        <h3>Enhance Your Stay</h3>
+                        <div class="form-group">
+                            <% addons.forEach(function(addon) { %>
+                                <div class="addon-item">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="addon_<%= addon.id %>" name="addon_<%= addon.id %>" value="<%= addon.price %>" onchange="updateSummary()">
+                                        <label for="addon_<%= addon.id %>"><%= addon.name %></label>
+                                    </div>
+                                    <span>$<%= addon.price %></span>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+
+                    <!-- Special Requests -->
+                    <div class="form-section">
+                        <h3>Special Requests</h3>
+                        <div class="form-group">
+                            <textarea id="special_requests" name="special_requests" rows="3" placeholder="<%= specialRequestsPlaceholder %>"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="booking-summary">
+                <div class="summary-section">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-line">
+                        <span>Service:</span>
+                        <span id="summary_service">-</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Room/Venue:</span>
+                        <span id="summary_accommodation">-</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Dates:</span>
+                        <span id="summary_dates">-</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Duration:</span>
+                        <span id="summary_duration">-</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Guests:</span>
+                        <span id="summary_guests">-</span>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Price Breakdown</h3>
+                    <div class="summary-line">
+                        <span id="main_item_label">Accommodation:</span>
+                        <span id="main_item_price">$0</span>
+                    </div>
+                    <div id="addon_summary"></div>
+                    <div class="summary-line">
+                        <span>Taxes & Fees (<%= taxPercentage %>%):</span>
+                        <span id="taxes_fees">$0</span>
+                    </div>
+                    <div class="summary-line" id="discount_line" style="display: none;">
+                        <span>Discount:</span>
+                        <span id="discount_amount">$0</span>
+                    </div>
+                    <div class="summary-line summary-total">
+                        <span>Total:</span>
+                        <span id="total_price">$0</span>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Promo Code</h3>
+                    <div class="promo-code">
+                        <input type="text" id="promo_code" placeholder="<%= promoCodePlaceholder %>">
+                        <button type="button" onclick="applyPromoCode()"><%= promoButtonText %></button>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="submitBooking()"><%= submitButtonText %></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <%= currentYear %> <%= hotelName %>. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Global variables
+        let selectedService = '';
+        let selectedRoomType = '';
+        let selectedRoomPrice = 0;
+        let selectedVenueType = '';
+        let selectedVenuePrice = 0;
+        let numberOfNights = 0;
+        let discountPercentage = 0;
+        let taxRate = <%= taxPercentage / 100 %>;
+        let validPromoCodes = <%- JSON.stringify(promoCodes) %>;
+    
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set date inputs
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const formatDate = date => date.toISOString().split('T')[0];
+            
+            const checkInDate = document.getElementById('check_in');
+            const checkOutDate = document.getElementById('check_out');
+            
+            checkInDate.min = formatDate(today);
+            checkInDate.value = ''; // Initialize as empty
+            
+            checkOutDate.min = formatDate(tomorrow);
+            checkOutDate.value = ''; // Initialize as empty
+            
+            // Reset summary sections
+            document.getElementById('summary_service').textContent = '-';
+            document.getElementById('summary_accommodation').textContent = '-';
+            document.getElementById('summary_dates').textContent = '-';
+            document.getElementById('summary_duration').textContent = '-';
+            document.getElementById('summary_guests').textContent = '-';
+            
+            // Update listeners
+            document.getElementById('num_adults').addEventListener('change', updateGuestSummary);
+            document.getElementById('num_children').addEventListener('change', updateGuestSummary);
+            
+            // Make room options clickable
+            const roomOptions = document.querySelectorAll('.room-option');
+            roomOptions.forEach(room => {
+                room.style.cursor = 'pointer';
+                room.addEventListener('click', function() {
+                    const roomId = this.getAttribute('data-room-id');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    if (this.closest('#accommodation-section')) {
+                        selectRoom(this, roomId, price);
+                    } else if (this.closest('#venue-section')) {
+                        selectVenue(this, roomId, price);
+                    }
+                });
+            });
+            
+            // Make service options clickable
+            const serviceOptions = document.querySelectorAll('.service-option');
+            serviceOptions.forEach(service => {
+                service.style.cursor = 'pointer';
+                service.addEventListener('click', function() {
+                    const serviceId = this.getAttribute('data-service-id');
+                    selectService(this, serviceId);
+                });
+            });
+            
+            // Add event listeners to addon checkboxes
+            document.querySelectorAll('.addon-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSummary);
+            });
+        });
+    
+        // Service selection
+        function selectService(element, serviceType) {
+            document.querySelectorAll('.service-option').forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            document.getElementById('service_type').value = serviceType;
+            selectedService = serviceType;
+            
+            // Show relevant sections
+            if (serviceType === 'accommodation') {
+                document.getElementById('accommodation-section').style.display = 'block';
+                document.getElementById('venue-section').style.display = 'none';
+                document.getElementById('main_item_label').textContent = 'Accommodation:';
+            } else if (serviceType === 'meetings' || serviceType === 'weddings') {
+                document.getElementById('accommodation-section').style.display = 'none';
+                document.getElementById('venue-section').style.display = 'block';
+                document.getElementById('main_item_label').textContent = 'Venue:';
+            } else {
+                document.getElementById('accommodation-section').style.display = 'none';
+                document.getElementById('venue-section').style.display = 'none';
+                document.getElementById('main_item_label').textContent = 'Services:';
+            }
+            
+            document.getElementById('summary_service').textContent = serviceType.charAt(0).toUpperCase() + serviceType.slice(1);
+            updateSummary();
+        }
+    
+        // Room selection
+        function selectRoom(element, roomType, price) {
+            document.querySelectorAll('#accommodation-section .room-option').forEach(r => r.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            document.getElementById('room_type').value = roomType;
+            document.getElementById('room_price').value = price;
+            
+            selectedRoomType = roomType;
+            selectedRoomPrice = price;
+            
+            // Get room name
+            let roomName = element.querySelector('.room-name').textContent;
+            document.getElementById('summary_accommodation').textContent = roomName;
+            updateSummary();
+        }
+    
+        // Venue selection
+        function selectVenue(element, venueType, price) {
+            document.querySelectorAll('#venue-section .room-option').forEach(v => v.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            document.getElementById('venue_type').value = venueType;
+            document.getElementById('venue_price').value = price;
+            
+            selectedVenueType = venueType;
+            selectedVenuePrice = price;
+            
+            // Get venue name
+            let venueName = element.querySelector('.room-name').textContent;
+            document.getElementById('summary_accommodation').textContent = venueName;
+            updateSummary();
+        }
+    
+        // Calculate nights
+        function calculateNights() {
+            const checkInValue = document.getElementById('check_in').value;
+            const checkOutValue = document.getElementById('check_out').value;
+            
+            if (!checkInValue || !checkOutValue) {
+                document.getElementById('summary_dates').textContent = '-';
+                document.getElementById('summary_duration').textContent = '-';
+                numberOfNights = 0;
+                updateSummary();
+                return;
+            }
+            
+            const checkIn = new Date(checkInValue);
+            const checkOut = new Date(checkOutValue);
+            
+            if (checkIn >= checkOut) {
+                alert('Check-out date must be after check-in date.');
+                const nextDay = new Date(checkIn);
+                nextDay.setDate(checkIn.getDate() + 1);
+                document.getElementById('check_out').value = nextDay.toISOString().split('T')[0];
+                checkOut.setTime(nextDay.getTime());
+            }
+            
+            const timeDiff = checkOut.getTime() - checkIn.getTime();
+            numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            document.getElementById('num_nights').value = numberOfNights;
+            
+            const options = { month: 'short', day: 'numeric' };
+            document.getElementById('summary_dates').textContent = 
+                `${checkIn.toLocaleDateString(undefined, options)} - ${checkOut.toLocaleDateString(undefined, options)}`;
+            document.getElementById('summary_duration').textContent = 
+                `${numberOfNights} night${numberOfNights > 1 ? 's' : ''}`;
+            
+            updateSummary();
+        }
+    
+        // Update guest summary
+        function updateGuestSummary() {
+            const numAdults = document.getElementById('num_adults').value;
+            const numChildren = document.getElementById('num_children').value;
+            
+            if (numAdults === '0' && numChildren === '0') {
+                document.getElementById('summary_guests').textContent = '-';
+                return;
+            }
+            
+            document.getElementById('summary_guests').textContent = 
+                `${numAdults} Adult${numAdults > 1 ? 's' : ''}${numChildren > 0 ? `, ${numChildren} Child${numChildren > 1 ? 'ren' : ''}` : ''}`;
+                
+            updateSummary();
+        }
+    
+        // Update booking summary
+        function updateSummary() {
+            // Calculate total before tax
+            let totalBeforeTax = selectedRoomPrice * numberOfNights + selectedVenuePrice * numberOfNights;
+    
+            // Add add-ons
+            const addonSummary = document.getElementById('addon_summary');
+            addonSummary.innerHTML = '';
+            
+            document.querySelectorAll('.addon-item input:checked').forEach(input => {
+                const addonPrice = parseFloat(input.value);
+                const addonLabel = input.nextElementSibling.textContent;
+                totalBeforeTax += addonPrice;
+                
+                const addonLine = document.createElement('div');
+                addonLine.className = 'summary-line';
+                addonLine.innerHTML = `<span>${addonLabel}:</span><span>$${addonPrice.toFixed(2)}</span>`;
+                addonSummary.appendChild(addonLine);
+            });
+    
+            // Apply discount
+            const discountLine = document.getElementById('discount_line');
+            const discountAmount = totalBeforeTax * (discountPercentage / 100);
+            
+            if (discountPercentage > 0) {
+                discountLine.style.display = 'flex';
+                document.getElementById('discount_amount').textContent = `-$${discountAmount.toFixed(2)}`;
+            } else {
+                discountLine.style.display = 'none';
+            }
+    
+            // Calculate total
+            const taxesAndFees = (totalBeforeTax - discountAmount) * taxRate;
+            const totalAfterTax = totalBeforeTax - discountAmount + taxesAndFees;
+    
+            // Update fields
+            document.getElementById('main_item_price').textContent = `$${(selectedRoomPrice * numberOfNights + selectedVenuePrice * numberOfNights).toFixed(2)}`;
+            document.getElementById('taxes_fees').textContent = `$${taxesAndFees.toFixed(2)}`;
+            document.getElementById('total_price').textContent = `$${totalAfterTax.toFixed(2)}`;
+        }
+    
+        // Apply promo code
+        function applyPromoCode() {
+            const promoCodeInput = document.getElementById('promo_code').value.trim();
+            if (validPromoCodes[promoCodeInput]) {
+                discountPercentage = validPromoCodes[promoCodeInput];
+                alert(`Promo code applied! You get a ${discountPercentage}% discount.`);
+            } else {
+                discountPercentage = 0;
+                alert('Invalid promo code.');
+            }
+            updateSummary();
+        }
+    
+        // Submit booking
+        function submitBooking() {
+            document.querySelector('.booking-form form').submit();
+        }
+    </script>
+</body>
+</html>

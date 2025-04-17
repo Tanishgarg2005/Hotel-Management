@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivory Haven Hotels & Resorts</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #b8860b;
+            --accent: #d4af37;
+            --background: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
+            --neutral-light: #f5f6f7;
+            --neutral-medium: #e9ecef;
+            --cream: #faf9f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--background);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--background);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-name {
+            flex: 1;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 0 2rem;
+        }
+
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .auth-buttons {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .auth-buttons a {
+            padding: 0.8rem 1.5rem;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .login-btn {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .register-btn {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .register-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section {
+            padding: 6rem 10%;
+        }
+
+        .section:nth-child(odd) {
+            background-color: var(--cream);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .facilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .facility {
+            text-align: center;
+            padding: 2rem;
+            background: var(--neutral-light);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .facility:hover {
+            transform: translateY(-5px);
+        }
+
+        .events {
+            background-color: var(--neutral-light);
+            padding: 6rem 10%;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .event-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .event-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--text-light);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 6rem 10%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 10%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .auth-buttons {
+                flex: 2;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80');
+            /* Replace with your hotel image URL */
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.8);
+            z-index: 1;
+        }
+
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--text-light);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .hero-content .cta-button:hover {
+            background-color: transparent;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="brand-name">Ivory Haven</a>
+        <div class="nav-links">
+            <a href="#rooms">Rooms</a>
+            <a href="#dining">Dining</a>
+            <a href="#meetings">Meetings</a>
+            <a href="#weddings">Weddings</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="register-btn">Register</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Welcome to Ivory Haven</h1>
+            <p>Where Luxury Meets Tranquility</p>
+            <a href="#rooms" class="cta-button">Explore Our Rooms</a>
+        </div>
+    </section>
+
+    <section id="rooms" class="section">
+        <div class="section-title">
+            <h2>Luxurious Accommodations</h2>
+            <p>Experience unparalleled comfort in our meticulously designed rooms</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <img src="https://www.oberoihotels.com/-/media/oberoi-hotels/website-images/the-oberoi-new-delhi/room-and-suites/deluxe-room/detail/deluxe-room-1.jpg"
+                    alt="Deluxe Room">
+                <div class="card-content">
+                    <h3>Deluxe Room</h3>
+                    <p>Elegant comfort with city views and premium amenities. Perfect for business travelers and
+                        couples.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/210/2017/11/27032018/tentrem-hotel-yogyakarta-home-image271.jpg"
+                    alt="Executive Suite">
+                <div class="card-content">
+                    <h3>Executive Suite</h3>
+                    <p>Spacious living area with separate bedroom and workspace. Ideal for extended stays.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/IXCJW/ixcjw-suite-0016-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                    alt="Presidential Suite">
+                <div class="card-content">
+                    <h3>Presidential Suite</h3>
+                    <p>The epitome of luxury with panoramic views and personalized butler service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="meetings" class="section">
+        <div class="section-title">
+            <h2>Meetings & Events</h2>
+            <p>Sophisticated spaces for your corporate needs</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <img src="https://officebanao.com/wp-content/uploads/2024/05/room-used-official-event-1.jpg"
+                    alt="Conference Room">
+                <div class="card-content">
+                    <h3>Conference Rooms</h3>
+                    <p>State-of-the-art facilities for up to 200 delegates with advanced AV equipment.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://www.fourseasons.com/alt/img-opt/~70.1530.0,0000-312,5000-3000,0000-1687,5000/publish/content/dam/fourseasons/images/web/ORL/ORL_420_original.jpg"
+                    alt="Boardroom">
+                <div class="card-content">
+                    <h3>Executive Boardroom</h3>
+                    <p>Intimate setting for high-level meetings with premium catering services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="weddings" class="events">
+        <div class="section-title">
+            <h2>Weddings & Celebrations</h2>
+            <p>Create unforgettable moments in stunning settings</p>
+        </div>
+        <div class="event-grid">
+            <div class="event-card">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-s/0d/4d/0a/dd/grand-ball-room.jpg
+                " alt="Grand Ballroom">
+                <div class="event-overlay">
+                    <h3>Grand Ballroom</h3>
+                    <p>Perfect for grand celebrations up to 500 guests</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="https://content3.jdmagicbox.com/comp/shimla/w3/0177px177.x177.220610205037.l9w3/catalogue/open-garden-terrace-restaurant-mall-road-shimla-restaurants-alleoixy5x.jpg"
+                    alt="Garden Venue">
+                <div class="event-overlay">
+                    <h3>Garden Terrace</h3>
+                    <p>Enchanting outdoor venue for intimate ceremonies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="facilities" class="section">
+        <div class="section-title">
+            <h2>Hotel Facilities</h2>
+            <p>Comprehensive amenities for your comfort</p>
+        </div>
+        <div class="facilities">
+            <div class="facility">
+                <h3>Spa & Wellness</h3>
+                <p>Luxury treatments and fitness center</p>
+            </div>
+            <div class="facility">
+                <h3>Swimming Pool</h3>
+                <p>Temperature-controlled infinity pool</p>
+            </div>
+            <div class="facility">
+                <h3>Fine Dining</h3>
+                <p>Multiple restaurants and bars</p>
+            </div>
+            <div class="facility">
+                <h3>Business Center</h3>
+                <p>24/7 business services</p>
+            </div>
+            <div class="facility">
+                <h3>Concierge</h3>
+                <p>Personalized guest services</p>
+            </div>
+            <div class="facility">
+                <h3>Valet Parking</h3>
+                <p>Secure parking facilities</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Begin Your Luxury Experience</h2>
+        <p>Book your stay with us for an unforgettable experience</p>
+        <a href="/booking" class="cta-button">Book Now</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ivory Haven Hotels & Resorts. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

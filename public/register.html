@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Registration</title>
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #0d1b2a, #1b263b, #415a77);
+            color: #fff;
+        }
+
+        /* Registration Card */
+        .register-card {
+            background-color: #1b263b;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+            padding: 20px 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Heading */
+        .register-card h1 {
+            font-size: 2rem;
+            color: #e8c547; /* Gold Color */
+            margin-bottom: 20px;
+        }
+
+        /* Error Message */
+        .register-card p {
+            color: #ff6b6b; /* Light Red for Warning */
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* Form Elements */
+        .register-card form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .register-card label {
+            text-align: left;
+            margin: 10px 0 5px;
+            font-size: 0.9rem;
+            color: #f8f9fa;
+        }
+
+        .register-card input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #415a77;
+            outline: none;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            color: #1b263b;
+            font-size: 1rem;
+        }
+
+        .register-card input:focus {
+            border-color: #e8c547;
+        }
+
+        .register-card button {
+            background-color: #e8c547; /* Gold Button */
+            color: #1b263b;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-card button:hover {
+            background-color: #d4af37;
+        }
+
+        /* Footer Text */
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <h1>Register</h1>
+        <!-- <p>Invalid username or password. Please register.</p> -->
+        <form action="/register" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p class="footer-text">Already have an account? <a href="/login" style="color: #e8c547;">Login here</a></p>
+    </div>
+</body>
+</html>
