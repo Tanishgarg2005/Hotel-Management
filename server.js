@@ -300,7 +300,7 @@ const notFoundHandler = (req, res, next) => {
     res.status(404).json({
         status: 'error',
         message: 'Route not found'
-    });
+    });  //
 };
 
 
@@ -310,4 +310,5 @@ app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+
 });
